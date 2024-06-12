@@ -1,6 +1,8 @@
 package es.ubu.lsi.TallerJPA.Model;
 
-import jakarta.persistence.Entity;
+
+import jakarta.persistence.*;
+
 
 /**
  * Clase User.
@@ -13,6 +15,13 @@ import jakarta.persistence.Entity;
  * @version 1.0
  */
 @Entity
+@Table(name = "Users")
 public class User {
+	
+	
+    /** The email. */
+    @Id
+    @Column(name = "email", length = 100)
+    private String email;
 
 }
