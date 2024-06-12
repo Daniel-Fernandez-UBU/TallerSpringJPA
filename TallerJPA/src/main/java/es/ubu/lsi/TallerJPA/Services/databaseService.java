@@ -1,5 +1,7 @@
 package es.ubu.lsi.TallerJPA.Services;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Clase databaseService.
  * 
@@ -10,6 +12,7 @@ package es.ubu.lsi.TallerJPA.Services;
  * 
  * @version 1.0
  */
+@Service
 public class databaseService {
 
 }

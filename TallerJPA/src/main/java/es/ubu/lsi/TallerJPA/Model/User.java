@@ -1,5 +1,6 @@
 package es.ubu.lsi.TallerJPA.Model;
 
+import jakarta.persistence.Entity;
 
 /**
  * Clase User.
@@ -11,6 +12,7 @@ package es.ubu.lsi.TallerJPA.Model;
  * 
  * @version 1.0
  */
+//@Entity
 public class User {
 
 }
