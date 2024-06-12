@@ -12,7 +12,7 @@ import jakarta.persistence.Entity;
  * 
  * @version 1.0
  */
-//@Entity
+@Entity
 public class User {
 
 }
