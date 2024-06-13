@@ -99,6 +99,25 @@ public class databaseService {
 		return listUsers;
 	}
 	
+	public List<User> findAll() {
+		return (List<User>) userRepository.findAll();
+	}
+
+
+	public void save(User cliente) {
+		userRepository.save(cliente);
+	}
+
+
+	public User findOne(String email) {
+		return userRepository.findById(email).orElse(null);
+	}
+
+
+	public void eliminar(String email) {
+		userRepository.deleteById(email);
+	}
+	
 	
 
 }

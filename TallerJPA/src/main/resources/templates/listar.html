@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="~{layout/layout :: head}"></head>
+
+<body>
+	<header th:insert="~{layout/layout :: header}"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+				
+				<h4 class="card-title">
+					<a class="btn btn-primary btn-xs" th:href="@{/form}">Crear Cliente</a>
+				</h4>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Email</th>
+							<th>Editar</th>
+							<th>Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cliente: ${clientes}">
+							<td th:text="${cliente.firstname}"></td>
+							<td th:text="${cliente.lastname}"></td>
+							<td th:text="${cliente.email}"></td>
+							<td><a class="btn btn-primary btn-xs" th:href="@{/form/} + ${cliente.email}"
+									th:text="'Editar'"></a></td>
+							<td><a class="btn btn-danger btn-xs" th:href="@{/eliminar/} + ${cliente.email}"
+									th:text="Eliminar"
+									onclick="return confirm('Estas seguro que deseas eliminar?');"></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<footer th:insert="~{layout/layout :: footer}"></footer>
+
+</body>
+
+</html>
