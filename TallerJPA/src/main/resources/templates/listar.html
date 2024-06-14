@@ -13,31 +13,11 @@
 			<div class="card-body">
 				
 				<h4 class="card-title">
-					<a class="btn btn-primary btn-xs" th:href="@{/form}">Crear Cliente</a>
+					<a th:if="${usuarios}" class="btn btn-primary btn-xs" th:href="@{/formUsuario}">Añadir Usuario</a>
+					<a th:if="${productos}" class="btn btn-primary btn-xs" th:href="@{/formProducto}">Añadir Producto</a>
 				</h4>
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>Nombre</th>
-							<th>Apellido</th>
-							<th>Email</th>
-							<th>Editar</th>
-							<th>Eliminar</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="cliente: ${clientes}">
-							<td th:text="${cliente.firstname}"></td>
-							<td th:text="${cliente.lastname}"></td>
-							<td th:text="${cliente.email}"></td>
-							<td><a class="btn btn-primary btn-xs" th:href="@{/form/} + ${cliente.email}"
-									th:text="'Editar'"></a></td>
-							<td><a class="btn btn-danger btn-xs" th:href="@{/eliminar/} + ${cliente.email}"
-									th:text="Eliminar"
-									onclick="return confirm('Estas seguro que deseas eliminar?');"></a></td>
-						</tr>
-					</tbody>
-				</table>
+				<table th:if="${usuarios}" th:insert="~{layout/layout :: listarUsuarios}"></table>
+				<table th:if="${productos}" th:insert="~{layout/layout :: listarProductos}"></table>
 			</div>
 		</div>
 	</div>

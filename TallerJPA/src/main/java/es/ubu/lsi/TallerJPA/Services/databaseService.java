@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.ubu.lsi.TallerJPA.Model.Product;
 import es.ubu.lsi.TallerJPA.Model.User;
+import es.ubu.lsi.TallerJPA.Repository.ProductRepository;
 import es.ubu.lsi.TallerJPA.Repository.UserRepository;
 
 /**
@@ -22,12 +24,17 @@ import es.ubu.lsi.TallerJPA.Repository.UserRepository;
 @Service
 public class databaseService {
 	
+	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
 	
+	/** The product repository. */
+	@Autowired
+	private ProductRepository productRepository;
+	
 	
 	/**
-	 * Método checkRegistered.
+	 * Method checkRegistered.
 	 * 
 	 * @param email the email
 	 * @param password the password
@@ -50,74 +57,85 @@ public class databaseService {
 		
 	} 
 	
+		
 	/**
-	 * Metodo updateProfile.
-	 * @param email the email
-	 * @param password the password
+	 * Find all users.
+	 *
+	 * @return the list
 	 */
-	public void updateProfile(String email, String password, String firstname, String lastname) {
-		
-		User user = new User();
-		
-		user.setEmail(email);
-		user.setPassword(password);
-		user.setFirstname(firstname);
-		user.setLastname(lastname);
-		
-		userRepository.save(user);
-		
+	public List<User> findAllUsers() {
+		return (List<User>) userRepository.findAll();
 	}
 	
 	/**
-	 * Método getUser.
+	 * Find all products.
+	 *
+	 * @return the list
+	 */
+	public List<Product> findAllProducts() {
+		return (List<Product>) productRepository.findAll();
+	}
+
+
+	/**
+	 * Save User.
+	 *
+	 * @param usuario the usuario
+	 */
+	public void save(User usuario) {
+		userRepository.save(usuario);
+	}
+	
+	/**
+	 * Save Product.
+	 *
+	 * @param product the product
+	 */
+	public void save(Product product) {
+		productRepository.save(product);
+	}
+
+
+	/**
+	 * Find one User.
+	 *
 	 * @param email the email
 	 * @return the user
 	 */
-	public User getUser(String email) {
-		Optional<User> userOpt;
-		User user = new User();
-		
-		if (userRepository.existsById(email)){
-			userOpt = userRepository.findById(email);
-			if (userOpt.isPresent()) {
-				user = userOpt.get();
-			}
-		}
-		return user;
-	}
-	
-	/**
-	 * Método getAllUsers.
-	 * @return lista de usuarios
-	 */
-	public List<User> getAllUsers(){
-		List<User> listUsers = (List<User>) userRepository.findAll();
-		
-		for (User user : listUsers) {
-			System.out.println(user.getEmail().toString());
-		}
-		return listUsers;
-	}
-	
-	public List<User> findAll() {
-		return (List<User>) userRepository.findAll();
-	}
-
-
-	public void save(User cliente) {
-		userRepository.save(cliente);
-	}
-
-
 	public User findOne(String email) {
 		return userRepository.findById(email).orElse(null);
 	}
+	
+	/**
+	 * Find one Product.
+	 *
+	 * @param id the id
+	 * @return the product
+	 */
+	public Product findOneProducto(String id) {
+		return productRepository.findById(id).orElse(null);
+	}
 
-
+	/**
+	 * Delete User.
+	 *
+	 * @param email the email
+	 */
 	public void eliminar(String email) {
 		userRepository.deleteById(email);
 	}
 	
+	/**
+	 * Delete Product.
+	 *
+	 * @param id the id
+	 */
+	public void eliminarProducto(String id) {
+		productRepository.deleteById(id);
+	}
 	
+	
+	
+
 
 }
