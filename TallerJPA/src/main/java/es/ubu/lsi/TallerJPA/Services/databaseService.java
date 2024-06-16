@@ -34,7 +34,9 @@ public class databaseService {
 	
 	
 	/**
-	 * Method checkRegistered.
+	 * Método checkRegistered.
+	 * 
+	 * Comprueba si el usuario está registrado en la base de datos y su contraseña es correcta.
 	 * 
 	 * @param email the email
 	 * @param password the password

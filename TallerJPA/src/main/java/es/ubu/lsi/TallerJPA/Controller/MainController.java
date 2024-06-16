@@ -13,12 +13,31 @@ import es.ubu.lsi.TallerJPA.Services.databaseService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Clase MainController.
+ * 
+ * Controladores principales de la aplicación.
+ * 
+ * @author Daniel Fernández Barrientos
+ * @author Ismael Manzanera López
+ * 
+ * @version 1.0
+ * 
+ */
 @Controller
 public class MainController {
 	
+	/** The database service. */
 	@Autowired
 	private databaseService databaseService;
 	
+	/**
+	 * Main page.
+	 *
+	 * @param session the session
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping("/")
 	public String mainPage(HttpSession session, Model model) {
 		
@@ -31,6 +50,13 @@ public class MainController {
 		return "home";
 	}
 	
+	/**
+	 * Logout.
+	 *
+	 * @param session the session
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping("/logout")
 	public String logout(HttpSession session, Model model) {
 		
@@ -43,11 +69,25 @@ public class MainController {
 	}
 	
 	
+	/**
+	 * Login.
+	 *
+	 * @return the string
+	 */
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
 	
+	/**
+	 * Check login.
+	 *
+	 * @param model the model
+	 * @param session the session
+	 * @param email the email
+	 * @param password the password
+	 * @return the string
+	 */
 	@PostMapping("/checkLogin")
 	public String checkLogin(Model model,  HttpSession session, @RequestParam("email") String email
 			,@RequestParam("password") String password) {
@@ -64,8 +104,4 @@ public class MainController {
 		return "login";
 	}
 	
-	
-	
-
-
 }

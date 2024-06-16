@@ -35,9 +35,36 @@ public class User {
     /** The lastname. */
     @Column(name = "lastname", length = 100)
     private String lastname;
+    
+    
+    /**
+     * Constructor vacío.
+     * 
+     * Crea el objeto vacío.
+     */
+    public User() {
+		super();
+	}
 
     
-    
+    /**
+     * Constructor User.
+     * 
+     * Constructor con todos los atributos.
+     * 
+     * @param email the email
+     * @param password the password
+     * @param firstname the firstname
+     * @param lastname the lastname
+     */
+	public User(String email, String password, String firstname, String lastname) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.firstname = firstname;
+		this.lastname = lastname;
+	}
+
 	/**
 	 * Gets the firstname.
 	 *

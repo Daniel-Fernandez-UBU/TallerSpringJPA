@@ -10,6 +10,7 @@
 
 		<div class="card bg-dark text-white">
 			<div class="card-header" th:text="${titulo}"></div>
+			<h4 class="py-1 mb-4 alert alert-danger" th:if="${blank}">Error: La contraseña no puede estar formada SOLO por espacios en blanco.</h4>
 			<div class="card-body">
 				<form th:if="${usuario}" th:insert="~{layout/layout :: formUsuario}" th:action="@{/formUsuario}" th:object="${usuario}" method="post"></form>
 				<form th:if="${producto}" th:insert="~{layout/layout :: formProducto}" th:action="@{/formProducto}" th:object="${producto}" method="POST"></form>

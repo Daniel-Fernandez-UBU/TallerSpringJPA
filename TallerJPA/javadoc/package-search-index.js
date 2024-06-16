@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"es.ubu.lsi.TallerJPA"},{"l":"es.ubu.lsi.TallerJPA.Config"},{"l":"es.ubu.lsi.TallerJPA.Controller"},{"l":"es.ubu.lsi.TallerJPA.Model"},{"l":"es.ubu.lsi.TallerJPA.Repository"},{"l":"es.ubu.lsi.TallerJPA.Services"}];updateSearchResults();

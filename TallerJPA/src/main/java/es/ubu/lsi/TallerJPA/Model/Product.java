@@ -2,9 +2,17 @@ package es.ubu.lsi.TallerJPA.Model;
 
 import jakarta.persistence.*;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Product.
+ * Clase Product.
+ * 
+ * Entidad de producto para el supermercado.
+ * 
+ * @author Daniel Fernández Barrientos
+ * @author Ismael Manzanera López
+ * 
+ * @version 1.0
+ * 
  */
 @Entity
 @Table(name = "products")
@@ -12,7 +20,7 @@ public class Product {
 	
     /** The identifier. */
     @Id
-    @Column(name = "identifier")
+    @Column(name = "identifier", length = 100)
     private String identifier;
     
     /** The brand. */
@@ -34,7 +42,40 @@ public class Product {
     /** The Price. */
     @Column(name = "price")
     private float price;
+    
+    
 
+    /**
+     * Constructor vacío.
+     * 
+     * Crea el objeto vacío.
+     */
+    public Product() {
+		super();
+	}
+
+	/**
+     * Constructor Product.
+     * 
+     * Constructor completo, con todos los argumentos.
+     * 
+     * @param identifier the identifier
+     * @param brand the brand
+     * @param description the description
+     * @param quantity the quantity
+     * @param expirationDate the expiration date
+     * @param price the price
+     */
+	public Product(String identifier, String brand, String description, int quantity, String expirationDate,
+			float price) {
+		super();
+		this.identifier = identifier;
+		this.brand = brand;
+		this.description = description;
+		this.quantity = quantity;
+		this.expirationDate = expirationDate;
+		this.price = price;
+	}
 
 	/**
 	 * Gets the brand.
@@ -143,11 +184,4 @@ public class Product {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	
-	
-	
-    
-    
-    
-
 }

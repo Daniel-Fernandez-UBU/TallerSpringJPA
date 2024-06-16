@@ -14,12 +14,31 @@ import es.ubu.lsi.TallerJPA.Model.User;
 import es.ubu.lsi.TallerJPA.Services.databaseService;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Clase UsersController.
+ * 
+ * Controladores de los usuarios de la aplicación.
+ * 
+ * @author Daniel Fernández Barrientos
+ * @author Ismael Manzanera López
+ * 
+ * @version 1.0
+ * 
+ */
 @Controller
 public class UsersController {
 	
+	/** The database service. */
 	@Autowired
 	private databaseService databaseService;
 	
+	/**
+	 * Listar.
+	 *
+	 * @param model the model
+	 * @param session the session
+	 * @return the string
+	 */
 	@GetMapping("/listarUsuarios")
 	public String listar(Model model, HttpSession session) {
 		
@@ -33,32 +52,30 @@ public class UsersController {
 		return "listar";
 	}
 	
+	/**
+	 * Crear.
+	 *
+	 * @param model the model
+	 * @param session the session
+	 * @return the string
+	 */
 	@GetMapping("/formUsuario")
 	public String crear(Model model, HttpSession session) {
 		
-		if (!(boolean) session.getAttribute("logued")) {
-			model.addAttribute("info", "Tienes que iniciar sesión.");
-			return "home";
-		}
-		
 		User usuario = new User();
 		model.addAttribute("usuario", usuario);
-		model.addAttribute("titulo", "Listado usuarios");
+		model.addAttribute("titulo", "Lista de usuarios");
 		return "form";
 	}
-	
-	@GetMapping("/profile")
-	public String perfil(Model model, HttpSession session) {
-		if (!(boolean) session.getAttribute("logued")) {
-			model.addAttribute("info", "Tienes que iniciar sesión.");
-			return "home";
-		}
-		User usuario = databaseService.findOne(session.getAttribute("email").toString());
-		model.addAttribute("usuario", usuario);
-		model.addAttribute("titulo", "Perfil del usuario");
-		return "form";
-	}
-	
+		
+	/**
+	 * Editar.
+	 *
+	 * @param email the email
+	 * @param model the model
+	 * @param session the session
+	 * @return the string
+	 */
 	@GetMapping("/formUsuario/{email}")
 	public String editar(@PathVariable(value = "email") String email, Model model, HttpSession session) {
 		
@@ -74,30 +91,51 @@ public class UsersController {
 			return "redirect:/listarUsuarios";
 		}
 		model.addAttribute("usuario", usuario);
-		model.addAttribute("titulo", "Listado usuarios");
+		model.addAttribute("titulo", "Hola, " + usuario.getEmail());
 		model.addAttribute("edit", true);
 		
 		return "form";
 	}
 	
+	/**
+	 * Guardar.
+	 *
+	 * @param usuario the usuario
+	 * @param result the result
+	 * @param model the model
+	 * @param status the status
+	 * @param session the session
+	 * @return the string
+	 */
 	@PostMapping("/formUsuario")
-	public String guardar(@Validated User usuario, BindingResult result, Model model, SessionStatus status, HttpSession session) {
+	public String guardar(@Validated User usuario, BindingResult result, Model model, SessionStatus status, HttpSession session) {	
 		
-		if (!(boolean) session.getAttribute("logued")) {
-			model.addAttribute("info", "Tienes que iniciar sesión.");
-			return "home";
-		}
-		
-		System.out.println(usuario.toString());
-		if(result.hasErrors()) {
-			model.addAttribute("titulo", "Listado usuarios");
+		// Si la contraseña no se actualiza, se mantiene la misma.
+		if (usuario.getPassword().isEmpty()) {
+			User user = databaseService.findOne(usuario.getEmail());
+			usuario.setPassword(user.getPassword());
+		// Si la contraseña solo contiene espacios en blanco, se avisa para que se solucione esto.
+		} else if (usuario.getPassword().isBlank()) {
+			model.addAttribute("titulo", "Hola, " + usuario.getEmail());
+			model.addAttribute("blank", true);
+			model.addAttribute("edit", true);
+			model.addAttribute("usuario", usuario);
 			return "form";
 		}
+				
 		databaseService.save(usuario);
 		status.setComplete();
-		return "redirect:/listarUsuarios";
+		return "home";
 	}
 	
+	/**
+	 * Eliminar.
+	 *
+	 * @param email the email
+	 * @param model the model
+	 * @param session the session
+	 * @return the string
+	 */
 	@GetMapping("/eliminarUsuario/{email}")
 	public String eliminar(@PathVariable(value = "email") String email, Model model, HttpSession session) {
 		
